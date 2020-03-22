@@ -8,7 +8,7 @@ export default class OPWSearchResult extends React.Component {
         let resultText = this.props.hej;
         let city = this.props.hej.city;
 
-        if (resultText.length == 0) {
+        if (resultText.length == 0 || city == null) {
             
             return null;
         }
