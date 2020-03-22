@@ -69,3 +69,18 @@ input[type=text] {
   color:white;
   font-family: "Felix Titling";
 }
+
+.test {
+  height: 30px;
+}
+
+.tableStyle {
+  margin: auto;
+}
+
+th, td {
+  padding-left: 20px;
+  text-align: center;
+  /* text-align: left; */
+  color: #133D5B;
+}

@@ -10,47 +10,62 @@ export default class OPWContainer extends React.Component {
         this.state = {
             result: [],
             searchResult: [],
-            isLoaded: false
+            isLoaded: false,
+            forecast: []
         };
     }
 
     fetchData = () => {
-        if(this.state.isLoaded == false) {
+        if (this.state.isLoaded == false) {
 
-        fetch('http://api.openweathermap.org/data/2.5/weather?q=Stockholm&appid=716f4bfa31b5b0bb6aef73898332a633')
-            .then(result => result.json())
-            .then(data => {
+            fetch('http://api.openweathermap.org/data/2.5/weather?q=Stockholm&appid=acdedab2a2774a098f6719ad2d24c753')
+                .then(result => result.json())
+                .then(data => {
 
-                this.setState({
-                    result: data,
-                    isLoaded: true
+                    this.setState({
+                        result: data,
+                        isLoaded: true
+                    })
+
                 })
-               
-            })
         }
     }
 
     search = (searchvalue) => {
-
-        const url = "http://api.openweathermap.org/data/2.5/weather?q=" + searchvalue +"&appid=716f4bfa31b5b0bb6aef73898332a633";
-
+        this.state.forecast= "";
+        const url = "http://api.openweathermap.org/data/2.5/forecast?q=" + searchvalue + "&appid=acdedab2a2774a098f6719ad2d24c753";
         fetch(url)
-        .then(response => response.json())
-        .then( data => {
+            .then(answer => answer.json())
+            .then(dataResult => {
 
-            this.setState({searchResult: data})
-            
-        });
+                this.setState({ searchResult: dataResult })
+            });
+    }
+
+    fetchForecast = () => {
+        const url = "http://api.openweathermap.org/data/2.5/forecast?q=stockholm&appid=acdedab2a2774a098f6719ad2d24c753";
+        fetch(url)
+            .then(answer => answer.json())
+            .then(dataResult => {
+
+                this.setState({ forecast: dataResult })
+            });
     }
 
     render = () => {
-        {this.fetchData()}
+        { this.fetchData() }
+        console.log(this.state.isLoaded);
 
+        {
+            if (this.state.isLoaded == false) {
+                this.fetchForecast()
+            }
+        }
         return (<React.Fragment>
-            <OPWStockholmWeather resultData={this.state.result}/>
-            <OPWSearch search ={this.search} />
-            <OPWLongTimeForecast/>
-            <OPWSearchResult hej = {this.state.searchResult}/>
+            <OPWStockholmWeather resultData={this.state.result} />
+            <OPWSearch search={this.search} />
+            <OPWLongTimeForecast hejsan={this.state.forecast} />
+            <OPWSearchResult hej={this.state.searchResult} />
         </React.Fragment>)
     }
 }

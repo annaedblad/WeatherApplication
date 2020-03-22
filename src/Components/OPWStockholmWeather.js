@@ -19,7 +19,7 @@ export default class OPWStockholmWeather extends React.Component{
         let celciusTemperature = Math.round(temperature.temp-273.15);
             return(
                 <React.Fragment>
-                    <p className="currentWeather">Vädret i {text.name} just nu</p>
+                    <p className="currentWeather">VÄDRET I {text.name.toUpperCase()} JUST NU</p>
                     <p className="currentWeather"> {convertTime.toLocaleString()} </p>
                     <p className="currentTemperature"> {celciusTemperature} °C </p>
                 </React.Fragment>
